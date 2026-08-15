@@ -1,7 +1,7 @@
 /**
  * FerDin John - Refined Clean React Portfolio
  * Clean, modern React 18 component architecture with subtle 3D particles,
- * typing role animation, interactive project modals, and responsive layout.
+ * typing role animation, interactive project modals, and reliable contact handling.
  */
 
 const { useState, useEffect } = React;
@@ -151,10 +151,21 @@ function PortfolioApp() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    // Smooth Scroll Helper
+    const scrollToSection = (e, id) => {
+        e.preventDefault();
+        setMenuOpen(false);
+        setActiveNav(id);
+        const element = document.getElementById(id);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     // Toast Helper
     const showToast = (msg, icon = 'bx-check-circle') => {
         setToast({ msg, icon });
-        setTimeout(() => setToast(null), 3000);
+        setTimeout(() => setToast(null), 3500);
     };
 
     // Copy to clipboard
@@ -163,7 +174,7 @@ function PortfolioApp() {
         showToast(`${label} copied to clipboard!`, 'bx-copy');
     };
 
-    // Contact Submit
+    // Contact Submit with Direct Email Redirection
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!formData.name || !formData.email || !formData.message) {
@@ -172,18 +183,25 @@ function PortfolioApp() {
         }
 
         setIsSending(true);
+
+        const emailSubject = encodeURIComponent(formData.subject || `Portfolio Contact from ${formData.name}`);
+        const emailBody = encodeURIComponent(
+            `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.number || 'N/A'}\n\nMessage:\n${formData.message}`
+        );
+        const mailtoUrl = `mailto:ferdinworkofficial@gmail.com?subject=${emailSubject}&body=${emailBody}`;
+
         setTimeout(() => {
             setIsSending(false);
-            setFormData({ name: '', email: '', number: '', subject: '', message: '' });
-            showToast('Message sent successfully! Thank you.', 'bx-send');
-        }, 1000);
+            showToast('Redirecting to your email client...', 'bx-envelope');
+            window.location.href = mailtoUrl;
+        }, 800);
     };
 
     return (
         <div className="app-wrapper">
             {/* HEADER */}
             <header className="header">
-                <a href="#home" className="logo">
+                <a href="#home" className="logo" onClick={(e) => scrollToSection(e, 'home')}>
                     <span>FerDin's</span> Portfolio
                 </a>
 
@@ -205,7 +223,7 @@ function PortfolioApp() {
                             key={item.id}
                             href={`#${item.id}`}
                             className={activeNav === item.id ? 'active' : ''}
-                            onClick={() => setMenuOpen(false)}
+                            onClick={(e) => scrollToSection(e, item.id)}
                         >
                             {item.label}
                         </a>
@@ -228,16 +246,16 @@ function PortfolioApp() {
                     </p>
 
                     <div className="social-media">
-                        <a href="https://www.linkedin.com/in/ferdin-john-3b78b6213/" target="_blank" rel="noreferrer">
+                        <a href="https://www.linkedin.com/in/ferdin-john-3b78b6213/" target="_blank" rel="noreferrer" title="LinkedIn">
                             <i className="bx bxl-linkedin-square"></i>
                         </a>
-                        <a href="https://git-scm.com/" target="_blank" rel="noreferrer">
+                        <a href="https://git-scm.com/" target="_blank" rel="noreferrer" title="Git">
                             <i className="bx bxl-git"></i>
                         </a>
-                        <a href="https://github.com/FerDinJohn" target="_blank" rel="noreferrer">
+                        <a href="https://github.com/FerDinJohn" target="_blank" rel="noreferrer" title="GitHub">
                             <i className="bx bxl-github"></i>
                         </a>
-                        <a href="https://www.instagram.com/ig_ferdin" target="_blank" rel="noreferrer">
+                        <a href="https://www.instagram.com/ig_ferdin" target="_blank" rel="noreferrer" title="Instagram">
                             <i className="bx bxl-instagram"></i>
                         </a>
                     </div>
@@ -348,35 +366,38 @@ function PortfolioApp() {
                 <div className="contact-wrapper">
                     {/* Contact Direct Info Cards */}
                     <div className="contact-info">
-                        <div
+                        <a
+                            href="mailto:ferdinworkofficial@gmail.com"
                             className="contact-info-card"
-                            onClick={() => copyText('ferdinworkofficial@gmail.com', 'Email')}
-                            style={{ cursor: 'pointer' }}
+                            title="Click to Send Email"
                         >
                             <i className="bx bx-envelope"></i>
                             <div>
                                 <strong>Email Me</strong>
                                 <span>ferdinworkofficial@gmail.com</span>
                             </div>
-                        </div>
+                        </a>
 
-                        <div
+                        <a
+                            href="https://wa.me/919944256465"
+                            target="_blank"
+                            rel="noreferrer"
                             className="contact-info-card"
-                            onClick={() => copyText('+91 9944256465', 'Phone number')}
-                            style={{ cursor: 'pointer' }}
+                            title="Click to Chat on WhatsApp"
                         >
-                            <i className="bx bx-phone-call"></i>
+                            <i className="bx bxl-whatsapp"></i>
                             <div>
                                 <strong>Phone & WhatsApp</strong>
                                 <span>+91 9944256465</span>
                             </div>
-                        </div>
+                        </a>
 
                         <a
                             href="https://www.linkedin.com/in/ferdin-john-3b78b6213/"
                             target="_blank"
                             rel="noreferrer"
                             className="contact-info-card"
+                            title="LinkedIn Profile"
                         >
                             <i className="bx bxl-linkedin"></i>
                             <div>
@@ -390,6 +411,7 @@ function PortfolioApp() {
                             target="_blank"
                             rel="noreferrer"
                             className="contact-info-card"
+                            title="GitHub Profile"
                         >
                             <i className="bx bxl-github"></i>
                             <div>
@@ -441,7 +463,15 @@ function PortfolioApp() {
                         ></textarea>
 
                         <button type="submit" className="btn" disabled={isSending}>
-                            {isSending ? 'Sending...' : 'Send Message'}
+                            {isSending ? (
+                                <>
+                                    <i className="bx bx-loader-alt bx-spin"></i> Sending...
+                                </>
+                            ) : (
+                                <>
+                                    <i className="bx bx-send"></i> Send Message
+                                </>
+                            )}
                         </button>
                     </form>
                 </div>
@@ -454,7 +484,7 @@ function PortfolioApp() {
                 </div>
 
                 <div className="footer-iconTop">
-                    <a href="#home" title="Back to Top">
+                    <a href="#home" onClick={(e) => scrollToSection(e, 'home')} title="Back to Top">
                         <i className="bx bx-up-arrow-alt"></i>
                     </a>
                 </div>
@@ -507,12 +537,13 @@ function PortfolioApp() {
                             <a
                                 href="#contact"
                                 className="btn"
-                                onClick={() => {
+                                onClick={(e) => {
                                     setSelectedService(null);
                                     setFormData((prev) => ({
                                         ...prev,
                                         subject: `Inquiry for ${selectedService.title}`
                                     }));
+                                    scrollToSection(e, 'contact');
                                 }}
                             >
                                 <i className="bx bx-envelope"></i> Inquire Now
