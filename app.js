@@ -417,7 +417,7 @@ function PortfolioApp() {
                     </p>
 
                     <div className="hero-btn-group">
-                        <a href="FerdinResume.pdf" download="FerdinResume.pdf" className="btn">
+                        <a href="Resume.pdf" download="Resume.pdf" className="btn">
                             <i className="bx bxs-download"></i> Download Resume
                         </a>
                         <a href="#contact" onClick={(e) => scrollToSection(e, 'contact')} className="btn btn-secondary">
