@@ -40,10 +40,10 @@ html {
 
 body {
     background: radial-gradient(circle at 10% 15%, rgba(0, 238, 255, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 90% 35%, rgba(129, 140, 248, 0.09) 0%, transparent 45%),
-                radial-gradient(circle at 15% 70%, rgba(56, 189, 248, 0.07) 0%, transparent 45%),
-                radial-gradient(circle at 85% 90%, rgba(0, 238, 255, 0.08) 0%, transparent 40%),
-                linear-gradient(180deg, #090d16 0%, #0d121f 50%, #070a12 100%);
+        radial-gradient(circle at 90% 35%, rgba(129, 140, 248, 0.09) 0%, transparent 45%),
+        radial-gradient(circle at 15% 70%, rgba(56, 189, 248, 0.07) 0%, transparent 45%),
+        radial-gradient(circle at 85% 90%, rgba(0, 238, 255, 0.08) 0%, transparent 40%),
+        linear-gradient(180deg, #090d16 0%, #0d121f 50%, #070a12 100%);
     background-attachment: fixed;
     color: var(--text-color);
     overflow-x: hidden;
@@ -81,8 +81,10 @@ section {
    HIDE SCROLLBAR (Cross-Browser)
    ========================================================================== */
 * {
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
 }
 
 *::-webkit-scrollbar,
@@ -287,8 +289,17 @@ section {
 }
 
 @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(0.85); }
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(0.85);
+    }
 }
 
 .home-content h3 {
@@ -328,8 +339,15 @@ span {
 }
 
 @keyframes blink {
-    0%, 100% { border-color: var(--main-color); }
-    50% { border-color: transparent; }
+
+    0%,
+    100% {
+        border-color: var(--main-color);
+    }
+
+    50% {
+        border-color: transparent;
+    }
 }
 
 .hero-btn-group {
@@ -377,7 +395,7 @@ span {
 
 .photo1 {
     width: 36vw;
-    max-width: 45rem;
+    max-width: 65rem;
     transition: 0.5s ease;
     filter: drop-shadow(0 0 25px rgba(0, 238, 255, 0.3));
 }
@@ -1307,35 +1325,78 @@ span {
    ANIMATIONS & RESPONSIVE
    ========================================================================== */
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes scaleUp {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 @keyframes slideIn {
-    from { opacity: 0; transform: translateX(40px); }
-    to { opacity: 1; transform: translateX(0); }
+    from {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 @media (max-width: 1200px) {
-    html { font-size: 55%; }
-    .portfolio-container { grid-template-columns: repeat(2, 1fr); }
-    .skills-grid { grid-template-columns: 1fr; }
-    .education-grid { grid-template-columns: 1fr; }
+    html {
+        font-size: 55%;
+    }
+
+    .portfolio-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .education-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 991px) {
-    .header { padding: 2rem 4%; }
-    section { padding: 10rem 4% 3rem; }
-    .contact { min-height: auto; }
-    .footer { padding: 2.5rem 4%; }
-    
-    #menu-icon { display: block; }
-    
+    .header {
+        padding: 2rem 4%;
+    }
+
+    section {
+        padding: 10rem 4% 3rem;
+    }
+
+    .contact {
+        min-height: auto;
+    }
+
+    .footer {
+        padding: 2.5rem 4%;
+    }
+
+    #menu-icon {
+        display: block;
+    }
+
     .navbar {
         position: absolute;
         top: 100%;
@@ -1351,9 +1412,11 @@ span {
         align-items: flex-start;
         backdrop-filter: blur(20px);
     }
-    
-    .navbar.active { display: flex; }
-    
+
+    .navbar.active {
+        display: flex;
+    }
+
     .navbar a {
         display: block;
         font-size: 2rem;
@@ -1366,10 +1429,23 @@ span {
         gap: 3rem;
     }
 
-    .home-content { max-width: 100%; }
-    .hero-btn-group { justify-content: center; }
-    .social-media { justify-content: center; }
-    .photo1 { width: 65vw; max-width: 38rem; margin-top: 2rem; }
+    .home-content {
+        max-width: 100%;
+    }
+
+    .hero-btn-group {
+        justify-content: center;
+    }
+
+    .social-media {
+        justify-content: center;
+    }
+
+    .photo1 {
+        width: 65vw;
+        max-width: 38rem;
+        margin-top: 2rem;
+    }
 
     .about {
         flex-direction: column-reverse;
@@ -1377,15 +1453,35 @@ span {
         gap: 3rem;
     }
 
-    .about-content h2 { text-align: center; }
-    .about-info-grid { grid-template-columns: 1fr; }
-    .photo2 { width: 65vw; max-width: 38rem; }
-    
-    .contact-wrapper { grid-template-columns: 1fr; }
+    .about-content h2 {
+        text-align: center;
+    }
+
+    .about-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .photo2 {
+        width: 65vw;
+        max-width: 38rem;
+    }
+
+    .contact-wrapper {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 768px) {
-    .portfolio-container { grid-template-columns: 1fr; }
-    .contact form .input-box { flex-direction: column; }
-    .experience-header { flex-direction: column; align-items: flex-start; }
+    .portfolio-container {
+        grid-template-columns: 1fr;
+    }
+
+    .contact form .input-box {
+        flex-direction: column;
+    }
+
+    .experience-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }
