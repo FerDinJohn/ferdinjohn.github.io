@@ -407,8 +407,8 @@ function PortfolioApp() {
 
                     <h3>Hello, It's me</h3>
                     <h1>FerDin John J</h1>
-                    <h3>
-                        And I'm a <span>{text}</span>
+                    <h3 className="hero-typing-title">
+                        And I'm a <span className="typing-text">{text}</span>
                         <span className="typing-cursor"></span>
                     </h3>
 
